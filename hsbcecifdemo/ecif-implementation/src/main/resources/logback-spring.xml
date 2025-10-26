@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--please pay attention that: file name should not be logback.xml，name it logback-spring.xml to use it in springboot framework-->
+<configuration>
+
+    <springProperty scope="context" name="logging.path" source="logging.path"/>
+    <springProperty scope="context" name="logging.level" source="logging.level.com.mcore.core"/>
+    <springProperty scope="context" name="appname" source="spring.application.name"/>
+    <!-- 来源于蜀信云规则 -->
+    <property name="max.file.size" value="200MB"/>
+    <property name="max.history" value="15"/>
+    <property name="total.size.cap" value="100GB"/>
+    <!-- 异步队列容量 -->
+    <property name="queue.size" value="512"/>
+    <!-- 控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="STDOUT-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <!-- 错误日志 -->
+    <appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- a filter that show green light for object that has a error log level-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <!-- log name -->
+        <file>${logging.path}/${appname}/common-error.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/common-error.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%logger{80},%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="ERROR-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="ERROR-APPENDER"/>
+    </appender>
+    <!-- 公共摘要错误日志 -->
+    <appender name="ERROR-APPENDER-COMMON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- log name -->
+        <file>${logging.path}/${appname}/tracelog/common-digest-error.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/common-digest-error.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyAppNm},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{intdProcesNo},%X{lunchAppSysCd},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{terminalTypCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="ERROR-APPENDER-COMMON-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="ERROR-APPENDER-COMMON"/>
+    </appender>
+    <logger name="COMMON-ERROR" level="${logging.level}" additivity="false">
+        <appender-ref ref="ERROR-APPENDER-COMMON-ASYNC"/>
+    </logger>
+    <!-- 摘要日志 -->
+    <appender name="DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/common-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/common-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyAppNm},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{intdProcesNo},%X{lunchAppSysCd},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{terminalTypCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="DIGEST-APPENDER"/>
+    </appender>
+    <logger name="COMMON-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+    <appender name="ROOT-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/common-default.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/common-default.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%logger{80},%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="ROOT-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="ROOT-APPENDER"/>
+    </appender>
+
+    <appender name="FACADE-DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/${appname}-service-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/${appname}-service-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="FACADE-DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="FACADE-DIGEST-APPENDER"/>
+    </appender>
+    <logger name="FACADE-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="FACADE-DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+    <appender name="SERVICE-DETAIL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/${appname}-service-detail.log</file>
+        <!-- to generate a log file everyday withTUserMapper a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/${appname}-service-detail.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="SERVICE-DETAIL-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="SERVICE-DETAIL-APPENDER"/>
+    </appender>
+    <logger name="SERVICE-DETAIL" level="${logging.level}" additivity="false">
+        <appender-ref ref="SERVICE-DETAIL-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+
+    <appender name="DAL-DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/${appname}-dal-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/${appname}-dal-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="DAL-DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="DAL-DIGEST-APPENDER"/>
+    </appender>
+    <logger name="DAL-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="DAL-DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+    <appender name="DAL-DETAIL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/${appname}-dal-detail.log</file>
+        <!-- to generate a log file everyday withTUserMapper a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/${appname}-dal-detail.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="DAL-DETAIL-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="DAL-DETAIL-APPENDER"/>
+    </appender>
+    <logger name="DAL-DETAIL" level="${logging.level}" additivity="false">
+        <appender-ref ref="DAL-DETAIL-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+
+    <appender name="MSG-DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/${appname}-msg-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/${appname}-msg-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="MSG-DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="MSG-DIGEST-APPENDER"/>
+    </appender>
+    <logger name="MSG-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="MSG-DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+
+    <appender name="MSG-DETAIL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/${appname}-msg-detail.log</file>
+        <!-- to generate a log file everyday withTUserMapper a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/${appname}-msg-detail.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="MSG-DETAIL-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="MSG-DETAIL-APPENDER"/>
+    </appender>
+    <logger name="MSG-DETAIL" level="${logging.level}" additivity="false">
+        <appender-ref ref="MSG-DETAIL-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+
+
+    <appender name="TASK-DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/${appname}-task-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/${appname}-task-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="TASK-DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="TASK-DIGEST-APPENDER"/>
+    </appender>
+    <logger name="TASK-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="TASK-DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+
+    <appender name="TASK-DETAIL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/${appname}-task-detail.log</file>
+        <!-- to generate a log file everyday withTUserMapper a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/${appname}-task-detail.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="TASK-DETAIL-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="TASK-DETAIL-APPENDER"/>
+    </appender>
+    <logger name="TASK-DETAIL" level="${logging.level}" additivity="false">
+        <appender-ref ref="TASK-DETAIL-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+
+
+    <appender name="SAL-DIGEST-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/tracelog/${appname}-sal-digest.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/tracelog/${appname}-sal-digest.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="SAL-DIGEST-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="SAL-DIGEST-APPENDER"/>
+    </appender>
+    <logger name="SAL-DIGEST" level="${logging.level}" additivity="false">
+        <appender-ref ref="SAL-DIGEST-APPENDER-ASYNC"/>
+    </logger>
+
+
+    <appender name="SAL-DETAIL-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/${appname}/${appname}-sal-detail.log</file>
+        <!-- to generate a log file everyday withTUserMapper a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>
+                ${logging.path}/${appname}/${appname}-sal-detail.log.%d{yyyyMMdd}.%i
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${max.file.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- log perserve days-->
+            <MaxHistory>${max.history}</MaxHistory>
+            <totalSizeCap>${total.size.cap}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}, %-5level ,%X{traceId},%X{spanId},%thread,%X{sysFolnNo},%X{bizFolnNo},%X{stressTesting},%X{businessgray},%X{reqePtyIp},%X{reqePtyZoneNm},%X{tenantId},%X{serviceName}-%X{methodName},%X{sceneCd},%X{errorType},%X{rspndCd},%X{rspndInfo},%X{insdbnkRspndCd},%X{insdbnkRspndInfo},%X{costTime},%X{intdNo},%X{bizSnglNo},%X{servSnglNo},%X{txTerminalNo},%X{clientTyp},%X{bizAccessChnlCd},%X{txOrgNO},%X{lprOrgNo},%X{operTelrNo},%msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="SAL-DETAIL-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>${queue.size}</queueSize>
+        <appender-ref ref="SAL-DETAIL-APPENDER"/>
+    </appender>
+    <logger name="SAL-DETAIL" level="${logging.level}" additivity="false">
+        <appender-ref ref="SAL-DETAIL-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+
+
+    <logger name="com.mcore.core" level="${logging.level}" additivity="false">
+        <appender-ref ref="STDOUT-ASYNC"/>
+        <appender-ref ref="ROOT-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </logger>
+
+    <root level="${logging.level}">
+        <appender-ref ref="STDOUT-ASYNC"/>
+        <appender-ref ref="ROOT-APPENDER-ASYNC"/>
+        <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+    </root>
+
+        <logger name="com.mcore.hsbc.ecif.infrastructure" level="WARN" additivity="false">
+            <appender-ref ref="STDOUT-ASYNC"/>
+            <appender-ref ref="ROOT-APPENDER-ASYNC"/>
+            <appender-ref ref="ERROR-APPENDER-ASYNC"/>
+        </logger>
+
+</configuration>

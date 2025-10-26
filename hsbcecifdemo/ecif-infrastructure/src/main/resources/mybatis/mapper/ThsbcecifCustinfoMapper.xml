@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.ThsbcecifCustinfoMapper">
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.ThsbcecifCustinfoPO">
+            <result column="CUST_NO" property="custNo" jdbcType="VARCHAR"  javaType="java.lang.String"    />
+            <result column="CUST_TYP_CD" property="custTypCd" jdbcType="VARCHAR"  javaType="java.lang.String"    />
+    </resultMap>
+
+    <sql id="Table_Name">
+        THSBCECIF_CustInfo
+    </sql>
+
+    <sql id="Base_Column">
+        <trim suffixOverrides=",">
+                CUST_NO,
+                CUST_TYP_CD,
+        </trim>
+    </sql>
+
+    <sql id="Update_Where">
+        <trim suffixOverrides="AND">
+                <if test="whereThsbcecifCustinfoPO.custNo != null and whereThsbcecifCustinfoPO.custNo != ''">
+                    CUST_NO= #{ whereThsbcecifCustinfoPO.custNo}
+                    AND
+                </if>
+                <if test="whereThsbcecifCustinfoPO.custTypCd != null and whereThsbcecifCustinfoPO.custTypCd != ''">
+                    CUST_TYP_CD= #{ whereThsbcecifCustinfoPO.custTypCd}
+                    AND
+                </if>
+        </trim>
+    </sql>
+
+    <sql id="Base_Where">
+        <trim suffixOverrides="AND">
+                <if test="custNo != null and custNo != ''">
+                    CUST_NO= #{ custNo}
+                    AND
+                </if>
+                <if test="custTypCd != null and custTypCd != ''">
+                    CUST_TYP_CD= #{ custTypCd}
+                    AND
+                </if>
+        </trim>
+    </sql>
+
+    <sql id="Base_Select">
+        SELECT
+        <include refid="Base_Column"/>
+        FROM
+        <include refid="Table_Name"/>
+        <where>
+            <include refid="Base_Where"/>
+        </where>
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO
+        <include refid="Table_Name"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                CUST_NO,
+                CUST_TYP_CD,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                #{ custNo},
+                #{ custTypCd},
+        </trim>
+    </insert>
+
+    <insert id="insertSelective">
+        INSERT INTO
+        <include refid="Table_Name"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="custNo != null">
+                    CUST_NO,
+                </if>
+                <if test="custTypCd != null">
+                    CUST_TYP_CD,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="custNo != null">
+                    #{ custNo},
+                </if>
+                <if test="custTypCd != null">
+                    #{ custTypCd},
+                </if>
+        </trim>
+    </insert>
+
+    <insert id="batchInsert">
+        INSERT INTO
+        <include refid="Table_Name"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                CUST_NO,
+                CUST_TYP_CD,
+        </trim>
+        <foreach collection="list" item="item" open="values" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{ item.custNo},
+                    #{ item.custTypCd},
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE
+        <include refid="Table_Name"/>
+        <set>
+                <if test="updateThsbcecifCustinfoPO.custNo != null">
+                    CUST_NO=#{updateThsbcecifCustinfoPO.custNo} ,
+                </if>
+                <if test="updateThsbcecifCustinfoPO.custTypCd != null">
+                    CUST_TYP_CD=#{updateThsbcecifCustinfoPO.custTypCd} ,
+                </if>
+        </set>
+        <where>
+            <include refid="Update_Where"/>
+        </where>
+    </update>
+
+    <delete id="delete">
+        DELETE FROM
+        <include refid="Table_Name"/>
+        <where>
+            <include refid="Base_Where"/>
+        </where>
+    </delete>
+
+    <select id="count" resultType="int">
+        SELECT count(1)
+        FROM
+        <include refid="Table_Name"/>
+        <where>
+            <include refid="Base_Where"/>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="BaseResultMap">
+        <include refid="Base_Select"/>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        <include refid="Base_Select"/>
+    </select>
+
+    <select id="selectForUpdate" resultMap="BaseResultMap" useCache="false">
+        <include refid="Base_Select"/>
+        FOR UPDATE
+    </select>
+
+
+
+
+</mapper>

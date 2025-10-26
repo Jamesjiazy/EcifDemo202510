@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustChnlTxnCommondMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustChnlTxnCommondPO">
+        <id column="id" property="id"/>
+        <result column="tenant_no" property="tenantNo"/>
+        <result column="cust_no" property="custNo"/>
+        <result column="lmt_typ_cd" property="lmtTypCd"/>
+        <result column="pmit_terminal_typ_cd" property="pmitTerminalTypCd"/>
+        <result column="sgl_tx_high_amt" property="sglTxHighAmt"/>
+        <result column="sgltx_lowest_amt" property="sglTxLowestAmt"/>
+        <result column="day_accm_max_tx_stkcnt" property="dayAccmMaxTxStkcnt"/>
+        <result column="day_accm_max_tx_amt" property="dayAccmMaxTxAmt"/>
+        <result column="mon_accm_max_tx_stkcnt" property="monAccmMaxTxStkcnt"/>
+        <result column="mon_accm_max_tx_amt" property="monAccmMaxTxAmt"/>
+        <result column="qt_accm_max_tx_stkcnt" property="qtAccmMaxTxStkcnt"/>
+        <result column="qt_accm_max_tx_amt" property="qtAccmMaxTxAmt"/>
+        <result column="yr_accm_max_tx_stkcnt" property="yrAccmMaxTxStkcnt"/>
+        <result column="yr_accm_max_tx_amt" property="yrAccmMaxTxAmt"/>
+        <result column="rsn" property="rsn"/>
+        <result column="valid_flg" property="validFlg"/>
+        <result column="crt_telr_no" property="crtTelrNo"/>
+        <result column="upd_telr_no" property="updTelrNo"/>
+        <result column="crt_tm" property="crtTm"/>
+        <result column="upd_tm" property="updTm"/>
+    </resultMap>
+
+    <!-- 列片段 -->
+    <sql id="Base_Column_List">
+        id, tenant_no, cust_no, lmt_typ_cd, pmit_terminal_typ_cd,
+        sgl_tx_high_amt, sgltx_lowest_amt, day_accm_max_tx_stkcnt, day_accm_max_tx_amt,
+        mon_accm_max_tx_stkcnt, mon_accm_max_tx_amt, qt_accm_max_tx_stkcnt, qt_accm_max_tx_amt,
+        yr_accm_max_tx_stkcnt, yr_accm_max_tx_amt, rsn, valid_flg,
+        crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <!-- 根据租户号+客户号+ID+有效标志查询唯一记录 -->
+    <select id="queryByCustNo"
+            parameterType="map"
+            resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM   customer_channel_txn_control_info
+        WHERE  tenant_no = #{tenantNo}
+        AND  cust_no   = #{custNo}
+        AND  valid_flg = '1'
+    </select>
+
+</mapper>

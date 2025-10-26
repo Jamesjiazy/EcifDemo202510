@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.ThsbcecifCustinfoMapperExt">
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.ThsbcecifCustinfoPO">
+                <result column="CUST_NO"  property="custNo" jdbcType="VARCHAR"  javaType="java.lang.String"    />
+                <result column="CUST_TYP_CD"  property="custTypCd" jdbcType="VARCHAR"  javaType="java.lang.String"    />
+    </resultMap>
+
+    <sql id="Table_Name">
+        THSBCECIF_CustInfo
+    </sql>
+
+    <sql id="Base_Column">
+        <trim suffixOverrides=",">
+                CUST_NO,
+                CUST_TYP_CD,
+        </trim>
+    </sql>
+</mapper>

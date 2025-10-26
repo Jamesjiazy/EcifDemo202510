@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerRouteMapper">
+
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO">
+        <id column="id" property="id"/>
+        <result column="tenant_no" property="tenantNo"/>
+        <result column="cust_no" property="custNo"/>
+        <result column="route_val" property="routeVal"/>
+        <result column="route_typ_cd" property="routeTypCd"/>
+        <result column="rela_seq_no" property="relaSeqNo"/>
+        <result column="afs_prodt_no" property="afsProdtNo"/>
+        <result column="main_acct_no" property="mainAcctNo"/>
+        <result column="valid_flg" property="validFlg"/>
+        <result column="crt_telr_no" property="crtTelrNo"/>
+        <result column="upd_telr_no" property="updTelrNo"/>
+        <result column="crt_tm" property="crtTm"/>
+        <result column="upd_tm" property="updTm"/>
+    </resultMap>
+
+    <!-- 3. 把上面查询的列抽出来，避免手写 * 号 -->
+    <sql id="Base_Column_List">
+        id
+        , tenant_no, cust_no, route_val, route_typ_cd,
+    rela_seq_no, afs_prodt_no, main_acct_no,
+    valid_flg, crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <!-- 新增 -->
+    <insert id="save" parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            keyProperty="id">
+        INSERT INTO customer_route_info
+        (tenant_no, cust_no, route_val, route_typ_cd,
+         rela_seq_no, afs_prodt_no, main_acct_no,
+         valid_flg, crt_telr_no, upd_telr_no, crt_tm, upd_tm)
+        VALUES (#{tenantNo}, #{custNo}, #{routeVal}, #{routeTypCd},
+                #{relaSeqNo}, #{afsProdtNo}, #{mainAcctNo},
+                '1', #{crtTelrNo}, #{updTelrNo}, now(), now())
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO">
+        UPDATE customer_route_info
+        <set>
+            <if test="routeVal != null">route_val = #{routeVal},</if>
+            <if test="routeTypCd != null">route_typ_cd = #{routeTypCd},</if>
+            <if test="relaSeqNo != null">rela_seq_no = #{relaSeqNo},</if>
+            <if test="afsProdtNo != null">afs_prodt_no = #{afsProdtNo},</if>
+            <if test="mainAcctNo != null">main_acct_no = #{mainAcctNo},</if>
+            upd_telr_no = #{updTelrNo},
+            upd_tm = now()
+        </set>
+        WHERE tenant_no = #{tenantNo}
+        AND route_typ_cd = #{routeTypCd}
+        AND route_val = #{routeVal}
+        AND valid_flg = '1'
+    </update>
+
+    <!-- 删除（逻辑删） -->
+    <update id="delete" parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO">
+        UPDATE customer_route_info
+        SET valid_flg   = '0',
+            upd_telr_no = #{updTelrNo},
+            upd_tm      = now()
+        WHERE tenant_no = #{tenantNo}
+          AND route_typ_cd = #{routeTypCd}
+          AND route_val = #{routeVal}
+          AND valid_flg = '1'
+    </update>
+
+    <!-- 删除（逻辑删） -->
+    <update id="deleteByCustNo">
+        UPDATE customer_route_info
+        SET valid_flg = '0',
+            upd_tm    = now()
+        WHERE tenant_no = #{tenantNo}
+          AND cust_no = #{custNo}
+          AND valid_flg = '1'
+    </update>
+    <!-- 1. 根据 tenantNo + custNo 查询有效记录 -->
+    <select id="queryValidByCustNo"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM customer_route_info
+        WHERE tenant_no = #{tenantNo}
+        AND cust_no = #{custNo}
+        AND valid_flg = '1'
+    </select>
+
+    <!-- 2. 仅判断客户号是否存在（有效） -->
+    <select id="existsValidByCustNo"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            resultType="java.lang.Boolean">
+        SELECT EXISTS (SELECT 1
+                       FROM customer_route_info
+                       WHERE tenant_no = #{tenantNo}
+                         AND cust_no = #{custNo}
+                         AND valid_flg = '1'
+            LIMIT 1)
+    </select>
+
+    <!-- 根据路由值、关联序号、路由类型查询有效记录 -->
+    <select id="queryByRouteValRelaSeqNoRouteTypCd"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM customer_route_info
+        WHERE route_val = #{routeVal}
+        <if test="relaSeqNo != null">
+            AND rela_seq_no = #{relaSeqNo}
+        </if>
+        AND route_typ_cd = #{routeTypCd}
+        AND valid_flg = '1'
+    </select>
+
+    <select id="queryByCustNoRouteTypCdValidFlg"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM customer_route_info
+        WHERE cust_no = #{custNo}
+        <if test="po.routeTypCd != null">
+            AND route_typ_cd = #{routeTypCd}
+        </if>
+        <if test="po.validFlg != null">
+            AND valid_flg = #{validFlg}
+        </if>
+    </select>
+
+    <!-- 2. 仅判断路由值是否存在（有效） -->
+    <select id="existsValidByRouteVal"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO"
+            resultType="java.lang.Boolean">
+        SELECT EXISTS (SELECT 1
+                       FROM customer_route_info
+                       WHERE tenant_no = #{tenantNo}
+                         AND route_typ_cd = #{routeTypCd}
+                         AND route_val = #{routeVal}
+                         AND valid_flg = '1'
+            LIMIT 1)
+    </select>
+
+    <!-- 只要有一条有效记录就返回 1 -->
+    <select id="existsValidByRouteValList"
+            resultType="java.lang.Boolean">
+        SELECT EXISTS (
+        SELECT 1
+        FROM customer_route_info
+        WHERE tenant_no = #{tenantNo}
+        AND route_val IN
+        <foreach collection="custAcctNoList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND valid_flg = '1'
+        LIMIT 1
+        )
+    </select>
+
+    <!-- 单条归并：把 PO 中的客户号刷成 mergeCustNo -->
+    <update id="consolidation"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustAcctInfoPO">
+        UPDATE customer_route_info
+        SET cust_no     = #{mergeCustNo},
+            upd_telr_no = #{custAcctInfoPO.updTelrNo},
+            upd_tm      = NOW()
+        WHERE tenant_no = #{custAcctInfoPO.tenantNo}
+          AND cust_no = #{custAcctInfoPO.custNo}
+          AND valid_flg = '1'
+    </update>
+
+    <!-- 批量归并：按账号列表批量刷新客户号 -->
+    <update id="consolidationByCustAcctNo">
+        UPDATE customer_route_info
+        SET cust_no = #{mergeCustNo},
+        upd_telr_no = #{operTelrNo},
+        upd_tm = NOW()
+        WHERE tenant_no = #{tenantNo}
+        AND route_val IN
+        <foreach collection="custAcctNoList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND route_typ_cd = #{routeTypCd}
+        AND valid_flg = '1'
+    </update>
+
+</mapper>

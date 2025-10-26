@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.PersonalCustomerListInfoMapper">
+
+    <resultMap id="BaseResultMap"
+               type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.PersonalCustomerListInfoPO">
+        <id column="id" property="id" />
+        <result column="tenant_no" property="tenantNo" />
+        <result column="cust_no" property="custNo" />
+        <result column="crtf_typ_cd" property="crtfTypCd" />
+        <result column="crtf_no" property="crtfNo" />
+        <result column="nm_sngl_typ_cd" property="nmSnglTypCd" />
+        <result column="data_sorc_cd" property="dataSorcCd" />
+        <result column="org_dismn_cd" property="orgDismnCd" />
+        <result column="ctrl_flg" property="ctrlFlg" />
+        <result column="chk_flg_cd" property="chkFlgCd" />
+        <result column="efft_dt" property="efftDt" />
+        <result column="efft_tm" property="efftTm" />
+        <result column="invalid_dt" property="invalidDt" />
+        <result column="invalid_tm" property="invalidTm" />
+        <result column="valid_flg" property="validFlg" />
+        <result column="crt_telr_no" property="crtTelrNo" />
+        <result column="upd_telr_no" property="updTelrNo" />
+        <result column="crt_tm" property="crtTm" />
+        <result column="upd_tm" property="updTm" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, tenant_no, cust_no, crtf_typ_cd, crtf_no, nm_sngl_typ_cd,
+        data_sorc_cd, org_dismn_cd, ctrl_flg, chk_flg_cd, efft_dt, efft_tm,
+        invalid_dt, invalid_tm, valid_flg, crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <select id="selectByCustNo" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM personal_customer_list_info
+        WHERE cust_no = #{custNo}
+    </select>
+
+
+</mapper>

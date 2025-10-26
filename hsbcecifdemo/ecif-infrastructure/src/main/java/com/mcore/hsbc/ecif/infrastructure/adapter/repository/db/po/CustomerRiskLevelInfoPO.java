@@ -1,0 +1,80 @@
+package com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po;
+
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
+public class CustomerRiskLevelInfoPO {
+    /**
+     * 租户编号
+     */
+    private String tenantNo;
+
+    /**
+     * 客户风险等级信息表ID
+     */
+    private Long id;
+
+    /**
+     * 客户编号
+     */
+    private String custNo;
+
+    /**
+     * 客户类型
+     */
+    private String custTypCd;
+
+    /**
+     * 客户关注程度代码
+     */
+    private String custAttnExttCd;
+
+    /**
+     * 黑名单客户标志
+     */
+    private String blklistCustFlg;
+
+    /**
+     * 评定日期
+     */
+    private LocalDate evaltDt;
+
+    /**
+     * 评定依据说明
+     */
+    private String evaltAcrdgasComnt;
+
+    /**
+     * 发布或签发机构号
+     */
+    private String relsOrIsuOrgNo;
+
+    /**
+     * 有效标志
+     */
+    private String validFlg;
+
+    /**
+     * 创建柜员号
+     */
+    private String crtTelrNo;
+
+    /**
+     * 更新柜员号
+     */
+    private String updTelrNo;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime crtTm;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updTm;
+
+}

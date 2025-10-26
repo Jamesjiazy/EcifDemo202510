@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxnxs.core.common.dao.DpstExtnsnDao">
+    <resultMap id="BaseResultMap" type="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        <!--@Table PRPH_FLW -->
+        <result column="BRST_ECD" property="brstEcd" jdbcType="VARCHAR"/>
+        <result column="PK_ID" property="pkId" jdbcType="BIGINT"/>
+        <result column="TNT_NO" jdbcType="VARCHAR" property="tntNo"/>
+        <result column="ORD_NO" jdbcType="VARCHAR" property="ordNo"/>
+        <result column="BZODR_NO" jdbcType="VARCHAR" property="bzodrNo"/>
+        <result column="SRVBL_NO" jdbcType="VARCHAR" property="srvblNo"/>
+        <result column="REQE_MSG_INFO" jdbcType="BLOB" property="reqeMsgInfo"/>
+        <result column="RETN_MSG_INFO" jdbcType="BLOB" property="retnMsgInfo"/>
+        <result column="cpnst_tx_stus_cd" jdbcType="VARCHAR" property="cpnstTxStusCd"/>
+        <result column="TDFLW_STUCD" jdbcType="VARCHAR" property="tdflwStucd"/>
+        <result column="TRD_DT" jdbcType="DATE" property="trdDt"/>
+        <result column="TRD_TM" jdbcType="TIMESTAMP" property="trdTm"/>
+        <result column="VLD_FLG" jdbcType="VARCHAR" property="vldFlg"/>
+        <result column="FAL_REAS" jdbcType="VARCHAR" property="falReas"/>
+        <result column="CRT_TM" jdbcType="TIMESTAMP" property="crtTm"/>
+        <result column="UPD_TM" jdbcType="TIMESTAMP" property="updTm"/>
+        <result column="cpnst_fail_tms" jdbcType="INTEGER" property="cpnstFailTms"/>
+        <result column="cpnst_upd_tm" jdbcType="TIMESTAMP" property="cpnstUpdTm"/>
+        <result column="DRFT_ID" jdbcType="VARCHAR" property="drftId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated -->
+        PK_ID, TNT_NO, ORD_NO, BZODR_NO, SRVBL_NO, BRST_ECD,
+        REQE_MSG_INFO,
+        RETN_MSG_INFO, cpnst_tx_stus_cd, TDFLW_STUCD,
+        TRD_DT, TRD_TM, VLD_FLG,
+        FAL_REAS,
+        CRT_TM, UPD_TM,
+        cpnst_fail_tms,
+        cpnst_upd_tm,
+        DRFT_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO" resultMap="BaseResultMap">
+        <!--@mbg.generated -->
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where ORD_NO = #{ordNo,jdbcType=VARCHAR}
+        <if test="bzodrNo != null">
+            and BZODR_NO = #{bzodrNo,jdbcType=VARCHAR}
+        </if>
+        <if test="srvblNo != null and srvblNo != ''">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+        <if test="brstEcd != null">
+            and BRST_ECD = #{brstEcd,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated -->
+        delete from PRPH_FLW
+        where PK_ID = #{pkId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pkId" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        insert into PRPH_FLW (
+        PK_ID,
+        TNT_NO,
+        ORD_NO, BZODR_NO, SRVBL_NO,
+        BRST_ECD, REQE_MSG_INFO, RETN_MSG_INFO,
+        cpnst_tx_stus_cd, TDFLW_STUCD,
+        TRD_DT, TRD_TM, VLD_FLG, FAL_REAS,
+        CRT_TM, UPD_TM ,cpnst_fail_tms,
+        cpnst_upd_tm,DRFT_ID
+        ) values (
+        #{pkId,jdbcType=BIGINT},
+        #{tntNo,jdbcType=VARCHAR},
+        #{ordNo,jdbcType=VARCHAR}, #{bzodrNo,jdbcType=VARCHAR}, #{srvblNo,jdbcType=VARCHAR},
+        #{brstEcd,jdbcType=VARCHAR}, #{reqeMsgInfo,jdbcType=BLOB},
+        #{retnMsgInfo,jdbcType=BLOB},
+        #{cpnstTxStusCd,jdbcType=VARCHAR}, #{tdflwStucd,jdbcType=VARCHAR},
+        #{trdDt,jdbcType=DATE}, #{trdTm,jdbcType=TIMESTAMP},
+        #{vldFlg,jdbcType=VARCHAR},
+        #{falReas,jdbcType=VARCHAR},
+        #{crtTm,jdbcType=TIMESTAMP}, #{updTm,jdbcType=TIMESTAMP},
+        #{cpnstFailTms,jdbcType=INTEGER}, #{cpnstUpdTm,jdbcType=TIMESTAMP},
+        #{drftId,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pkId" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        insert into PRPH_FLW
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tntNo != null">
+                TNT_NO,
+            </if>
+            <if test="pkId != null">
+                PK_ID,
+            </if>
+            <if test="ordNo != null">
+                ORD_NO,
+            </if>
+            <if test="bzodrNo != null">
+                BZODR_NO,
+            </if>
+            <if test="srvblNo != null">
+                SRVBL_NO,
+            </if>
+            <if test="brstEcd != null">
+                BRST_ECD,
+            </if>
+            <if test="reqeMsgInfo != null">
+                REQE_MSG_INFO,
+            </if>
+            <if test="retnMsgInfo != null">
+                RETN_MSG_INFO,
+            </if>
+            <if test="cpnstTxStusCd != null">
+                cpnst_tx_stus_cd,
+            </if>
+            <if test="tdflwStucd != null">
+                TDFLW_STUCD,
+            </if>
+            <if test="trdDt != null">
+                TRD_DT,
+            </if>
+            <if test="trdTm != null">
+                TRD_TM,
+            </if>
+            <if test="vldFlg != null">
+                VLD_FLG,
+            </if>
+            <if test="falReas != null">
+                FAL_REAS,
+            </if>
+            <if test="crtTm != null">
+                CRT_TM,
+            </if>
+            <if test="updTm != null">
+                UPD_TM,
+            </if>
+            <if test="cpnstFailTms != null">
+                cpnst_fail_tms,
+            </if>
+            <if test="cpnstUpdTm != null">
+                cpnst_upd_tm,
+            </if>
+            <if test="drftId != null">
+                DRFT_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pkId != null">
+                #{pkId,jdbcType=BIGINT},
+            </if>
+            <if test="tntNo != null">
+                #{tntNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ordNo != null">
+                #{ordNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bzodrNo != null">
+                #{bzodrNo,jdbcType=VARCHAR},
+            </if>
+            <if test="srvblNo != null">
+                #{srvblNo,jdbcType=VARCHAR},
+            </if>
+            <if test="brstEcd != null">
+                #{brstEcd,jdbcType=VARCHAR},
+            </if>
+            <if test="reqeMsgInfo != null">
+                #{reqeMsgInfo,jdbcType=BLOB},
+            </if>
+            <if test="retnMsgInfo != null">
+                #{retnMsgInfo,jdbcType=BLOB},
+            </if>
+            <if test="cpnstTxStusCd != null">
+                #{cpnstTxStusCd,jdbcType=VARCHAR},
+            </if>
+            <if test="tdflwStucd != null">
+                #{tdflwStucd,jdbcType=VARCHAR},
+            </if>
+            <if test="trdDt != null">
+                #{trdDt,jdbcType=DATE},
+            </if>
+            <if test="trdTm != null">
+                #{trdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vldFlg != null">
+                #{vldFlg,jdbcType=VARCHAR},
+            </if>
+            <if test="falReas != null">
+                #{falReas,jdbcType=VARCHAR},
+            </if>
+            <if test="crtTm != null">
+                #{crtTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updTm != null">
+                #{updTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cpnstFailTms != null">
+                #{cpnstFailTms,jdbcType=INTEGER},
+            </if>
+            <if test="cpnstUpdTm != null">
+                #{cpnstUpdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="drftId != null">
+                #{drftId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        update PRPH_FLW
+        <set>
+            <if test="tntNo != null">
+                TNT_NO = #{tntNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ordNo != null">
+                ORD_NO = #{ordNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bzodrNo != null">
+                BZODR_NO = #{bzodrNo,jdbcType=VARCHAR},
+            </if>
+            <if test="srvblNo != null">
+                SRVBL_NO = #{srvblNo,jdbcType=VARCHAR},
+            </if>
+            <if test="brstEcd != null">
+                BRST_ECD = #{brstEcd,jdbcType=VARCHAR},
+            </if>
+            <if test="reqeMsgInfo != null">
+                REQE_MSG_INFO = #{reqeMsgInfo,jdbcType=BLOB},
+            </if>
+            <if test="retnMsgInfo != null">
+                RETN_MSG_INFO = #{retnMsgInfo,jdbcType=BLOB},
+            </if>
+            <if test="cpnstTxStusCd != null">
+                cpnst_tx_stus_cd = #{cpnstTxStusCd,jdbcType=VARCHAR},
+            </if>
+            <if test="tdflwStucd != null">
+                TDFLW_STUCD = #{tdflwStucd,jdbcType=VARCHAR},
+            </if>
+            <if test="trdDt != null">
+                TRD_DT = #{trdDt,jdbcType=DATE},
+            </if>
+            <if test="trdTm != null">
+                TRD_TM = #{trdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vldFlg != null">
+                VLD_FLG = #{vldFlg,jdbcType=VARCHAR},
+            </if>
+            <if test="falReas != null">
+                FAL_REAS = #{falReas,jdbcType=VARCHAR},
+            </if>
+            <if test="crtTm != null">
+                CRT_TM = #{crtTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updTm != null">
+                UPD_TM = #{updTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cpnstFailTms != null">
+                cpnst_fail_tms = #{cpnstFailTms,jdbcType=INTEGER},
+            </if>
+            <if test="cpnstUpdTm != null">
+                cpnst_upd_tm = #{cpnstUpdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="drftId != null">
+                DRFT_ID = #{drftId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ORD_NO = #{ordNo,jdbcType=VARCHAR}
+        <if test="bzodrNo != null">
+            and BZODR_NO = #{bzodrNo,jdbcType=VARCHAR}
+        </if>
+        <if test="brstEcd != null">
+            and BRST_ECD = #{brstEcd,jdbcType=VARCHAR}
+        </if>
+        <if test="srvblNo != null">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        update PRPH_FLW
+        set TNT_NO = #{tntNo,jdbcType=VARCHAR},
+        ORD_NO = #{ordNo,jdbcType=VARCHAR},
+        BZODR_NO = #{bzodrNo,jdbcType=VARCHAR},
+        SRVBL_NO = #{srvblNo,jdbcType=VARCHAR},
+        REQE_MSG_INFO = #{reqeMsgInfo,jdbcType=BLOB},
+        RETN_MSG_INFO = #{retnMsgInfo,jdbcType=BLOB},
+        cpnst_tx_stus_cd = #{cpnstTxStusCd,jdbcType=VARCHAR},
+        TDFLW_STUCD = #{tdflwStucd,jdbcType=VARCHAR},
+        TRD_DT = #{trdDt,jdbcType=DATE},
+        TRD_TM = #{trdTm,jdbcType=TIMESTAMP},
+        VLD_FLG = #{vldFlg,jdbcType=VARCHAR},
+        FAL_REAS = #{falReas,jdbcType=VARCHAR},
+        CRT_TM = #{crtTm,jdbcType=TIMESTAMP},
+        UPD_TM = #{updTm,jdbcType=TIMESTAMP},
+        cpnst_fail_tms = #{cpnstFailTms,jdbcType=INTEGER},
+        cpnst_upd_tm = #{cpnstUpdTm,jdbcType=TIMESTAMP},
+        DRFT_ID = #{drftId,jdbcType=VARCHAR}
+        where PK_ID = #{pkId,jdbcType=BIGINT}  AND  BRST_ECD = #{brstEcd,jdbcType=VARCHAR}
+    </update>
+    <select id="select4drop" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where BRST_ECD = #{brstEcd}
+        and TDFLW_STUCD in ('0','1','2','3','5')
+        and cpnst_tx_stus_cd = '1'
+        and cpnst_fail_tms  &lt;  #{cpnstFailTms}
+        and CRT_TM  &gt;=   #{crtTm,jdbcType=TIMESTAMP}
+        and CRT_TM  &lt;=   #{cpnstTm,jdbcType=TIMESTAMP}
+        and cpnst_upd_tm  &lt;=   #{cpnstTm,jdbcType=TIMESTAMP}
+        order by cpnst_upd_tm desc limit 0,#{maxNum}
+    </select>
+    <select id="select4timeout" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where BRST_ECD = #{brstEcd}
+        and TDFLW_STUCD = '0'
+        and cpnst_tx_stus_cd = '0'
+        and cpnst_fail_tms  &lt;  #{cpnstFailTms}
+        and CRT_TM  &gt;=   #{crtTm,jdbcType=TIMESTAMP}
+        and CRT_TM  &lt;=  #{cpnstTm,jdbcType=TIMESTAMP}
+        order by CRT_TM asc limit 0,#{maxNum}
+    </select>
+    <select id="select4compensate" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where
+        BRST_ECD = #{brstEcd}
+        and TDFLW_STUCD in ('2','3','5')
+        and cpnst_tx_stus_cd = '0'
+        and cpnst_fail_tms  &lt;  #{cmpstTms}
+        and CRT_TM  &gt;=  #{crtTm,jdbcType=TIMESTAMP}
+        order by CRT_TM asc limit 0,#{maxNum}
+    </select>
+    <select id="select4compensate2" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where BRST_ECD = #{brstEcd}
+        and TDFLW_STUCD in ('1','2','3','5')
+        and cpnst_tx_stus_cd in ('3','4')
+        and cpnst_fail_tms  &lt;  #{cpnstFailTms}
+        and CRT_TM  &gt;=  #{crtTm,jdbcType=TIMESTAMP}
+        order by CRT_TM asc limit 0,#{maxNum}
+    </select>
+    <update id="updateRunningByPrimaryKeySelective" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoDO">
+        <!--@mbg.generated -->
+        update PRPH_FLW
+        <set>
+            <if test="tntNo != null">
+                TNT_NO = #{tntNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ordNo != null">
+                ORD_NO = #{ordNo,jdbcType=VARCHAR},
+            </if>
+            <if test="bzodrNo != null">
+                BZODR_NO = #{bzodrNo,jdbcType=VARCHAR},
+            </if>
+            <if test="srvblNo != null">
+                SRVBL_NO = #{srvblNo,jdbcType=VARCHAR},
+            </if>
+            <if test="brstEcd != null">
+                BRST_ECD = #{brstEcd,jdbcType=VARCHAR},
+            </if>
+            <if test="reqeMsgInfo != null">
+                REQE_MSG_INFO = #{reqeMsgInfo,jdbcType=BLOB},
+            </if>
+            <if test="retnMsgInfo != null">
+                RETN_MSG_INFO = #{retnMsgInfo,jdbcType=BLOB},
+            </if>
+
+            cpnst_tx_stus_cd = '1',
+
+            <if test="tdflwStucd != null">
+                TDFLW_STUCD = #{tdflwStucd,jdbcType=VARCHAR},
+            </if>
+            <if test="trdDt != null">
+                TRD_DT = #{trdDt,jdbcType=DATE},
+            </if>
+            <if test="trdTm != null">
+                TRD_TM = #{trdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="vldFlg != null">
+                VLD_FLG = #{vldFlg,jdbcType=VARCHAR},
+            </if>
+            <if test="falReas != null">
+                FAL_REAS = #{falReas,jdbcType=VARCHAR},
+            </if>
+            <if test="crtTm != null">
+                CRT_TM = #{crtTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updTm != null">
+                UPD_TM = #{updTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cpnstFailTms != null">
+                cpnst_fail_tms = #{cpnstFailTms,jdbcType=INTEGER},
+            </if>
+            <if test="cpnstUpdTm != null">
+                cpnst_upd_tm = #{cpnstUpdTm,jdbcType=TIMESTAMP},
+            </if>
+            <if test="drftId != null">
+                DRFT_ID = #{drftId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ORD_NO = #{ordNo,jdbcType=VARCHAR}
+        <if test="bzodrNo != null">
+            and BZODR_NO = #{bzodrNo,jdbcType=VARCHAR}
+        </if>
+        <if test="brstEcd != null">
+            and BRST_ECD = #{brstEcd,jdbcType=VARCHAR}
+        </if>
+        <if test="srvblNo != null">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+        <if test="cpnstFailTms != null">
+            and cpnst_fail_tms = #{cpnstFailTms,jdbcType=INTEGER}
+        </if>
+        <if test="tdflwStucd != null">
+            and TDFLW_STUCD = #{tdflwStucd,jdbcType=VARCHAR}
+        </if>
+        <if test="cpnstTxStusCd != null">
+            and cpnst_tx_stus_cd = #{cpnstTxStusCd,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <select id="list" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstExtnsnInfoExtDO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from PRPH_FLW
+        where
+        TNT_NO = #{tntNo,jdbcType=VARCHAR}
+        <if test="ordNo != null and ordNo != ''">
+            and ORD_NO = #{ordNo,jdbcType=VARCHAR}
+        </if>
+        <if test="bzodrNo != null and bzodrNo != ''">
+            and BZODR_NO = #{bzodrNo,jdbcType=VARCHAR}
+        </if>
+        <if test="srvblNo != null and srvblNo != ''">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+        <if test="brstEcd != null and brstEcd != ''">
+            and BRST_ECD = #{brstEcd,jdbcType=VARCHAR}
+        </if>
+        <if test="tdflwStucd != null and tdflwStucd != ''">
+            and TDFLW_STUCD = #{tdflwStucd,jdbcType=VARCHAR}
+        </if>
+        <if test="cpnstTxStusCd != null and cpnstTxStusCd != ''">
+            and cpnst_tx_stus_cd = #{cpnstTxStusCd,jdbcType=VARCHAR}
+        </if>
+        <if test="cpnstFailTms != null and cpnstFailTms != ''">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+        <if test="srvblNo != null and srvblNo != ''">
+            and SRVBL_NO = #{srvblNo,jdbcType=VARCHAR}
+        </if>
+        <if test="endTm != null">
+            and TRD_DT  &lt;  #{endTm,jdbcType=DATE}
+        </if>
+        <if test="startDate != null">
+            and TRD_DT  &gt;=  #{startDate,jdbcType=DATE}
+        </if>
+        order by CRT_TM asc
+    </select>
+</mapper>

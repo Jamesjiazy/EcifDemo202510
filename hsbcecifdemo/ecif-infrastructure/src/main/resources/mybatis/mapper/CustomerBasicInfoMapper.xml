@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerBasicInfoMapper">
+
+    <!-- 基础列名 -->
+    <sql id="Base_Column_List">
+        tenant_no, id, cust_no, cust_lvl_cd, cust_typ_cd, crtf_typ_cd, crtf_no,
+        cust_nm, crtf_grant_dt, crtf_matr_dt, dom_overs_flg_cd, state_and_rgn_cd,
+        addr, rsvd_mobile_no, emply_flg, shrhd_flg, grntcrtf_instn_nm, valid_flg,
+        crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <!-- 根据 cust_no 查询 -->
+    <select id="selectByCustNo"
+            resultType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerBasicInfoPO">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM customer_basic_info
+        WHERE cust_no = #{custNo}
+    </select>
+
+    <update id="update"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerBasicInfoPO">
+        UPDATE customer_basic_info
+        SET
+            tenant_no = #{tenantNo},
+            cust_no = #{custNo},
+            cust_lvl_cd = #{custLvlCd},
+            cust_typ_cd = #{custTypCd},
+            crtf_typ_cd = #{crtfTypCd},
+            crtf_no = #{crtfNo},
+            cust_nm = #{custNm},
+            crtf_grant_dt = #{crtfGrantDt},
+            crtf_matr_dt = #{crtfMatrDt},
+            dom_overs_flg_cd = #{domOversFlgCd},
+            state_and_rgn_cd = #{stateAndRgnCd},
+            addr = #{addr},
+            rsvd_mobile_no = #{rsvdMobileNo},
+            emply_flg = #{emplyFlg},
+            shrhd_flg = #{shrhdFlg},
+            grntcrtf_instn_nm = #{grntcrtfInstnNm},
+            valid_flg = #{validFlg},
+            crt_telr_no = #{crtTelrNo},
+            upd_telr_no = #{updTelrNo},
+            crt_tm = #{crtTm},
+            upd_tm = #{updTm}
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="selectByConditions"
+            resultType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerBasicInfoPO">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM customer_basic_info
+        <where>
+            <if test="custNo != null and custNo != ''">
+                AND cust_no = #{custNo}
+            </if>
+            <if test="custNm != null and custNm != ''">
+                AND cust_nm = #{custNm}
+            </if>
+            <if test="crtfNo != null and crtfNo != ''">
+                AND crtf_no = #{crtfNo}
+            </if>
+            <if test="crtfTypCd != null and crtfTypCd != ''">
+                AND crtf_typ_cd = #{crtfTypCd}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 插入客户基本信息 -->
+    <insert id="insert" parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerBasicInfoPO">
+        INSERT INTO customer_basic_info (
+            tenant_no, cust_no, cust_lvl_cd, cust_typ_cd, crtf_typ_cd, crtf_no,
+            cust_nm, crtf_grant_dt, crtf_matr_dt, dom_overs_flg_cd, state_and_rgn_cd,
+            addr, rsvd_mobile_no, emply_flg, shrhd_flg, grntcrtf_instn_nm, valid_flg,
+            crt_telr_no, upd_telr_no, crt_tm, upd_tm
+        ) VALUES (
+                     #{tenantNo}, #{custNo}, #{custLvlCd}, #{custTypCd}, #{crtfTypCd}, #{crtfNo},
+                     #{custNm}, #{crtfGrantDt}, #{crtfMatrDt}, #{domOversFlgCd}, #{stateAndRgnCd},
+                     #{addr}, #{rsvdMobileNo}, #{emplyFlg}, #{shrhdFlg}, #{grntcrtfInstnNm}, #{validFlg},
+                     #{crtTelrNo}, #{updTelrNo}, #{crtTm}, #{updTm}
+                 )
+    </insert>
+
+
+    <!-- 根据证件类型和证件号码查询客户信息 -->
+    <select id="selectByCertInfo" resultType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerBasicInfoPO">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM customer_basic_info
+        WHERE crtf_typ_cd = #{crtfTypCd}
+        AND crtf_no = #{crtfNo}
+<!--        AND valid_flg = '1'  &lt;!&ndash; 只查询有效记录 &ndash;&gt;-->
+        ORDER BY upd_tm DESC
+    </select>
+
+
+</mapper>

@@ -1,0 +1,32 @@
+/.settings/
+/.classpath
+/.project
+**/target/
+/bin/
+*.iml
+*.log
+*.log.*
+/.idea
+*.rebel.xml
+# --- IDEA 全家桶 ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+# --- Maven 输出 ---
+target/
+*/target/
+# --- Gradle 输出 ---
+build/
+*/build/
+# --- 日志 & 临时文件 ---
+*.log
+*.log.*
+logging.path_IS_UNDEFINED
+# --- Eclipse ---
+.settings/
+.classpath
+.project
+/bin/
+*.rebel.xml

@@ -1,0 +1,50 @@
+<services>
+    <!--客户归并-->
+    <service ref="consolidationCustApiService" group="mcore" name="consolidationCustApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.ConsolidationCustApiService">
+    </service>
+<!--客户归并-单账号-->
+    <service ref="consolidationCustByAcctNoApiService" group="mcore" name="consolidationCustByAcctNoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.ConsolidationCustByAcctNoApiService">
+    </service>
+<!--对私三要素开立客户-->
+    <service ref="createPerCustInfoApiService" group="mcore" name="createPerCustInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.CreatePerCustInfoApiService">
+    </service>
+<!--对私客户信息开立-->
+    <service ref="crtPerCustInfoApiService" group="mcore" name="crtPerCustInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.CrtPerCustInfoApiService">
+    </service>
+<!--客户账户路由信息维护-->
+    <service ref="mgmtCustAcctInfoApiService" group="mcore" name="mgmtCustAcctInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.MgmtCustAcctInfoApiService">
+    </service>
+<!--对私客户信息维护-->
+    <service ref="mgmtPerCustInfoApiService" group="mcore" name="mgmtPerCustInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.MgmtPerCustInfoApiService">
+    </service>
+<!--通过账号查询客户账户路由信息-->
+    <service ref="quryCustAcctInfoByCustAcctApiService" group="mcore" name="quryCustAcctInfoByCustAcctApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryCustAcctInfoByCustAcctApiService">
+    </service>
+<!--通过客户号查询客户账户路由信息-->
+    <service ref="quryCustAcctInfoByCustNoApiService" group="mcore" name="quryCustAcctInfoByCustNoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryCustAcctInfoByCustNoApiService">
+    </service>
+<!--客户基本信息查询-->
+    <service ref="quryCustInfoApiService" group="mcore" name="quryCustInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryCustInfoApiService">
+    </service>
+<!--客户类型查询-->
+    <service ref="quryCustTypeApiService" group="mcore" name="quryCustTypeApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryCustTypeApiService">
+    </service>
+<!--查询境外取现控制标志-->
+    <service ref="quryOvsCashWithdrReCtrFlgApiService" group="mcore" name="quryOvsCashWithdrReCtrFlgApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryOvsCashWithdrReCtrFlgApiService">
+    </service>
+<!--对私客户交易渠道控制查询-->
+    <service ref="quryPerCustChnlTxnCommondApiService" group="mcore" name="quryPerCustChnlTxnCommondApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryPerCustChnlTxnCommondApiService">
+    </service>
+<!--根据客户编号查询个人客户信息-->
+    <service ref="quryPerCustInfoByCustNoApiService" group="mcore" name="quryPerCustInfoByCustNoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryPerCustInfoByCustNoApiService">
+    </service>
+<!--对私客户名单信息查询-->
+    <service ref="quryPerCustNameListInfoByCustNoApiService" group="mcore" name="quryPerCustNameListInfoByCustNoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryPerCustNameListInfoByCustNoApiService">
+    </service>
+<!--对私客户风险等级信息查询-->
+    <service ref="quryPerCustRiskLevelApiService" group="mcore" name="quryPerCustRiskLevelApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QuryPerCustRiskLevelApiService">
+    </service>
+<!--客户签约关系查询-->
+    <service ref="qurySignRelationInfoApiService" group="mcore" name="qurySignRelationInfoApiService" version="1.0.0" timeout="6000" interface="com.mcore.hsbc.ecif.api.service.QurySignRelationInfoApiService">
+    </service>
+</services>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.OvsCashWithdrBlkInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.OvsCashWithdrBlkInfoPO">
+        <id column="id" property="id" />
+        <result column="uid" property="uid"/>
+        <result column="tenant_no" property="tenantNo"/>
+        <result column="crtf_no" property="crtfNo"/>
+        <result column="crtf_typ_cd" property="crtfTypCd"/>
+        <result column="valid_flg" property="validFlg"/>
+        <result column="crt_telr_no" property="crtTelrNo"/>
+        <result column="upd_telr_no" property="updTelrNo"/>
+        <result column="crt_tm" property="crtTm"/>
+        <result column="upd_tm" property="updTm"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, uid, tenant_no, crtf_no, crtf_typ_cd, valid_flg, crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <select id="selectByCrtfInfo" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM ovs_cash_withdr_blk_info
+        WHERE crtf_typ_cd = #{crtfTypCd}
+        AND crtf_no = #{crtfNo}
+    </select>
+
+
+</mapper>

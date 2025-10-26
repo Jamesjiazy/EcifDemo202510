@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="consolidationCustApiService" class="com.mcore.hsbc.ecif.implementation.api.service.ConsolidationCustApiServiceImpl"/>
+    <bean id="consolidationCustByAcctNoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.ConsolidationCustByAcctNoApiServiceImpl"/>
+    <bean id="createPerCustInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.CreatePerCustInfoApiServiceImpl"/>
+    <bean id="crtPerCustInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.CrtPerCustInfoApiServiceImpl"/>
+    <bean id="mgmtCustAcctInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.MgmtCustAcctInfoApiServiceImpl"/>
+    <bean id="mgmtPerCustInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.MgmtPerCustInfoApiServiceImpl"/>
+    <bean id="quryCustAcctInfoByCustAcctApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryCustAcctInfoByCustAcctApiServiceImpl"/>
+    <bean id="quryCustAcctInfoByCustNoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryCustAcctInfoByCustNoApiServiceImpl"/>
+    <bean id="quryCustInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryCustInfoApiServiceImpl"/>
+    <bean id="quryCustTypeApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryCustTypeApiServiceImpl"/>
+    <bean id="quryOvsCashWithdrReCtrFlgApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryOvsCashWithdrReCtrFlgApiServiceImpl"/>
+    <bean id="quryPerCustChnlTxnCommondApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryPerCustChnlTxnCommondApiServiceImpl"/>
+    <bean id="quryPerCustInfoByCustNoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryPerCustInfoByCustNoApiServiceImpl"/>
+    <bean id="quryPerCustNameListInfoByCustNoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryPerCustNameListInfoByCustNoApiServiceImpl"/>
+    <bean id="quryPerCustRiskLevelApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QuryPerCustRiskLevelApiServiceImpl"/>
+    <bean id="qurySignRelationInfoApiService" class="com.mcore.hsbc.ecif.implementation.api.service.QurySignRelationInfoApiServiceImpl"/>
+    <bean id="consolidationCustApplicationService" class="com.mcore.hsbc.ecif.implementation.application.ConsolidationCustApplicationServiceImpl"/>
+    <bean id="consolidationCustByAcctNoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.ConsolidationCustByAcctNoApplicationServiceImpl"/>
+    <bean id="createPerCustInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.CreatePerCustInfoApplicationServiceImpl"/>
+    <bean id="crtPerCustInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.CrtPerCustInfoApplicationServiceImpl"/>
+    <bean id="mgmtCustAcctInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.MgmtCustAcctInfoApplicationServiceImpl"/>
+    <bean id="mgmtPerCustInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.MgmtPerCustInfoApplicationServiceImpl"/>
+    <bean id="quryCustAcctInfoByCustAcctApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryCustAcctInfoByCustAcctApplicationServiceImpl"/>
+    <bean id="quryCustAcctInfoByCustNoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryCustAcctInfoByCustNoApplicationServiceImpl"/>
+    <bean id="quryCustInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryCustInfoApplicationServiceImpl"/>
+    <bean id="quryCustTypeApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryCustTypeApplicationServiceImpl"/>
+    <bean id="quryOvsCashWithdrReCtrFlgApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryOvsCashWithdrReCtrFlgApplicationServiceImpl"/>
+    <bean id="quryPerCustChnlTxnCommondApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryPerCustChnlTxnCommondApplicationServiceImpl"/>
+    <bean id="quryPerCustInfoByCustNoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryPerCustInfoByCustNoApplicationServiceImpl"/>
+    <bean id="quryPerCustNameListInfoByCustNoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryPerCustNameListInfoByCustNoApplicationServiceImpl"/>
+    <bean id="quryPerCustRiskLevelApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QuryPerCustRiskLevelApplicationServiceImpl"/>
+    <bean id="qurySignRelationInfoApplicationService" class="com.mcore.hsbc.ecif.implementation.application.QurySignRelationInfoApplicationServiceImpl"/>
+    <bean id="crtPerCustInfoFER202509160047622Service" class="com.mcore.hsbc.ecif.implementation.domain.service.crtpercustinfo.CrtPerCustInfoFER202509160047622DomainServiceImpl"/>
+    <bean id="crtPerCustInfoFER202509160047623Service" class="com.mcore.hsbc.ecif.implementation.domain.service.crtpercustinfo.CrtPerCustInfoFER202509160047623DomainServiceImpl"/>
+    <bean id="crtPerCustInfoFER202509170047625Service" class="com.mcore.hsbc.ecif.implementation.domain.service.crtpercustinfo.CrtPerCustInfoFER202509170047625DomainServiceImpl"/>
+    <bean id="quryCustTypeFER202509160047616Service" class="com.mcore.hsbc.ecif.implementation.domain.service.qurycusttype.QuryCustTypeFER202509160047616DomainServiceImpl"/>
+    <bean id="quryOvsCashWithdrReCtrFlgFER202509170047630Service" class="com.mcore.hsbc.ecif.implementation.domain.service.quryovscashwithdrrectrflg.QuryOvsCashWithdrReCtrFlgFER202509170047630DomainServiceImpl"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047631Service" class="com.mcore.hsbc.ecif.implementation.domain.service.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047631DomainServiceImpl"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047632Service" class="com.mcore.hsbc.ecif.implementation.domain.service.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047632DomainServiceImpl"/>
+    <bean id="quryPerCustRiskLevelFER202509170047633Service" class="com.mcore.hsbc.ecif.implementation.domain.service.qurypercustrisklevel.QuryPerCustRiskLevelFER202509170047633DomainServiceImpl"/>
+    <bean id="quryCustAcctInfoByCustNoFER202509160047605Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.qurycustacctinfobycustno.QuryCustAcctInfoByCustNoFER202509160047605Handler"/>
+    <bean id="quryCustTypeFER202509160047616Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.qurycusttype.QuryCustTypeFER202509160047616Handler"/>
+    <bean id="crtPerCustInfoFER202509160047622Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.crtpercustinfo.CrtPerCustInfoFER202509160047622Handler"/>
+    <bean id="crtPerCustInfoFER202509160047623Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.crtpercustinfo.CrtPerCustInfoFER202509160047623Handler"/>
+    <bean id="crtPerCustInfoFER202509170047625Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.crtpercustinfo.CrtPerCustInfoFER202509170047625Handler"/>
+    <bean id="quryOvsCashWithdrReCtrFlgFER202509170047630Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.quryovscashwithdrrectrflg.QuryOvsCashWithdrReCtrFlgFER202509170047630Handler"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047631Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047631Handler"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047632Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047632Handler"/>
+    <bean id="quryPerCustRiskLevelFER202509170047633Handler" class="com.mcore.hsbc.ecif.implementation.domain.handler.qurypercustrisklevel.QuryPerCustRiskLevelFER202509170047633Handler"/>
+    <bean id="quryCustAcctInfoByCustNoFER202509160047605Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.qurycustacctinfobycustno.QuryCustAcctInfoByCustNoFER202509160047605Wrapper"/>
+    <bean id="quryCustTypeFER202509160047616Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.qurycusttype.QuryCustTypeFER202509160047616Wrapper"/>
+    <bean id="crtPerCustInfoFER202509160047622Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.crtpercustinfo.CrtPerCustInfoFER202509160047622Wrapper"/>
+    <bean id="crtPerCustInfoFER202509160047623Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.crtpercustinfo.CrtPerCustInfoFER202509160047623Wrapper"/>
+    <bean id="crtPerCustInfoFER202509170047625Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.crtpercustinfo.CrtPerCustInfoFER202509170047625Wrapper"/>
+    <bean id="quryOvsCashWithdrReCtrFlgFER202509170047630Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.quryovscashwithdrrectrflg.QuryOvsCashWithdrReCtrFlgFER202509170047630Wrapper"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047631Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047631Wrapper"/>
+    <bean id="quryPerCustInfoByCustNoFER202509170047632Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.qurypercustinfobycustno.QuryPerCustInfoByCustNoFER202509170047632Wrapper"/>
+    <bean id="quryPerCustRiskLevelFER202509170047633Wrapper" class="com.mcore.hsbc.ecif.implementation.domain.wrapper.qurypercustrisklevel.QuryPerCustRiskLevelFER202509170047633Wrapper"/>
+    <bean id="custAcctInfoRepo" class="com.mcore.hsbc.ecif.infrastructure.adapter.repository.CustAcctInfoRepoImpl"/>
+
+</beans>

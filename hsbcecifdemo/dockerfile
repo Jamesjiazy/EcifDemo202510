@@ -1,0 +1,33 @@
+# 构建应用的镜像，根据需要替换registryurl和namespace。
+FROM hub.ant.dev.cloud.scrcu.com/sofa/sofaboot-onbuild:2.0_java8_p1 AS BUILDER
+MAINTAINER liucj <liucj@alipay.com>
+# build的命令，-sk=true表示skip test； -an用于指定应用的名字来指定需要运行的jar包（可以为空）。
+# APPNAME是定义在BUILDER镜像中的ONBUILD ARG，需要在docker build时通过--build-arg指定。
+# -sfp用于指定mvn 执行时的settings文件路径，/home/admin/app是代码checkout存放的路径。
+# -dp=true用于表明是否需要deploy jar包到Remote Repository。
+RUN /home/admin/buildscripts/sofaboot-build -sk=true -sfp=/home/admin/app/settings.xml
+#RUN /home/admin/buildscripts/sofaboot-build -sk=true -an=$APPNAME
+# 应用的运行时镜像，根据需要替换registryurl和namespace。
+#From hub.ant.dev.cloud.scrcu.com/sofa/sofaboot-runtime:3.0_java8_ldc
+From hub.ant.dev.cloud.scrcu.com/kylinos/java-runtime:openjdk8-x86
+# 安装时区工具并配置时区信息
+#ENV TIME_ZONE Asia/Shanghai
+#ENV TZ Asia/Shanghai
+# 将BUILDER中打出的包copy到运行时镜像相应的runtime目录(不要修改)
+COPY --from=BUILDER /home/admin/release/run/*.jar /home/admin/release/run/
+# 设置JVM参数，根据应用实际情况修改
+#ENV JAVA_OPTS="\
+#-server \
+#-Xmx4g \
+#-Xms4g \
+#-Xmn512m \
+#-XX:PermSize=128m \
+#-XX:MaxPermSize=128m \
+#-XX:MetaspaceSize=128m \
+#-XX:MaxMetaspaceSize=128m \
+#-Xss256k"
+# 将sofaboot-start拷贝到容器运行环境下
+#COPY sofaboot-start-forconfigloading /home/admin/scripts/sofaboot-start
+#RUN chmod a+x /home/admin/scripts/sofaboot-start
+
+CMD ["/bin/bash" , "-c" , "/home/admin/scripts/sofaboot-entry.sh"]

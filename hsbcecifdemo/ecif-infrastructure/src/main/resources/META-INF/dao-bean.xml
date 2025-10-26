@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<bean id="customerRouteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerRouteMapper" />
+	</bean>
+	<bean id="CustomerBasicInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerBasicInfoMapper" />
+	</bean>
+	<bean id="PersonalCustomerInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.PersonalCustomerInfoMapper" />
+	</bean>
+	<bean id="PersonalCustomerListInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.PersonalCustomerListInfoMapper" />
+	</bean>
+	<bean id="CustomerRiskLevelInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerRiskLevelInfoMapper" />
+	</bean>
+	<bean id="custChnlTxnCommondMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustChnlTxnCommondMapper" />
+	</bean>
+	<bean id="OvsCashWithdrBlkInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.OvsCashWithdrBlkInfoMapper" />
+	</bean>
+</beans>
+

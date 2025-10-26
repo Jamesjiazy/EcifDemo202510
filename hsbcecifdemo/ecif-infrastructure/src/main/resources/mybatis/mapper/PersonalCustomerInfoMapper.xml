@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.PersonalCustomerInfoMapper">
+
+    <resultMap id="BaseResultMap"
+               type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.PersonalCustomerInfoPO">
+        <id column="id" property="id"/>
+        <result column="tenant_no" property="tenantNo"/>
+        <result column="cust_no" property="custNo"/>
+        <result column="cust_eng_nm" property="custEngNm"/>
+        <result column="nm_used" property="nmUsed"/>
+        <result column="gender_cd" property="genderCd"/>
+        <result column="ethnic_cd" property="ethnicCd"/>
+        <result column="career_typ_cd" property="careerTypCd"/>
+        <result column="housd_rgst_addr" property="housdRgstAddr"/>
+        <result column="e_mail" property="eMail"/>
+        <result column="birth_dt" property="birthDt"/>
+        <result column="edctbkg_cd" property="edctbkgCd"/>
+        <result column="ace_degree_cd" property="aceDegreeCd"/>
+        <result column="work_unit_nm" property="workUnitNm"/>
+        <result column="work_unit_addr" property="workUnitAddr"/>
+        <result column="id_card_typ_cd" property="idCardTypCd"/>
+        <result column="grntcrtf_instn_nm" property="grntcrtfInstnNm"/>
+        <result column="admin_cmprmnt_cd" property="adminCmprmntCd"/>
+        <result column="marrg_situation_cd" property="marrgSituationCd"/>
+        <result column="sps_name" property="spsName"/>
+        <result column="sps_eng_name" property="spsEngName"/>
+        <result column="sps_crtf_typ_cd" property="spsCrtfTypCd"/>
+        <result column="sps_crtf_no" property="spsCrtfNo"/>
+        <result column="sps_work_unit_nm" property="spsWorkUnitNm"/>
+        <result column="sps_tel_no" property="spsTelNo"/>
+        <result column="valid_flg" property="validFlg"/>
+        <result column="crt_telr_no" property="crtTelrNo"/>
+        <result column="upd_telr_no" property="updTelrNo"/>
+        <result column="crt_tm" property="crtTm"/>
+        <result column="upd_tm" property="updTm"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, tenant_no, cust_no, cust_eng_nm, nm_used, gender_cd, ethnic_cd,
+        career_typ_cd, housd_rgst_addr, e_mail, birth_dt, edctbkg_cd, ace_degree_cd,
+        work_unit_nm, work_unit_addr, id_card_typ_cd, grntcrtf_instn_nm, admin_cmprmnt_cd,
+        marrg_situation_cd, sps_name, sps_eng_name, sps_crtf_typ_cd, sps_crtf_no,
+        sps_work_unit_nm, sps_tel_no, valid_flg, crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <select id="selectByCustNo" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM personal_customer_info
+        WHERE cust_no = #{custNo}
+    </select>
+
+    <update id="update"
+            parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.PersonalCustomerInfoPO">
+        UPDATE personal_customer_info
+        SET tenant_no=#{tenantNo},
+            cust_no=#{custNo},
+            cust_eng_nm=#{custEngNm},
+            nm_used=#{nmUsed},
+            gender_cd=#{genderCd},
+            ethnic_cd=#{ethnicCd},
+            career_typ_cd=#{careerTypCd},
+            housd_rgst_addr=#{housdRgstAddr},
+            e_mail=#{eMail},
+            birth_dt=#{birthDt},
+            edctbkg_cd=#{edctbkgCd},
+            ace_degree_cd=#{aceDegreeCd},
+            work_unit_nm=#{workUnitNm},
+            work_unit_addr=#{workUnitAddr},
+            id_card_typ_cd=#{idCardTypCd},
+            grntcrtf_instn_nm=#{grntcrtfInstnNm},
+            admin_cmprmnt_cd=#{adminCmprmntCd},
+            marrg_situation_cd=#{marrgSituationCd},
+            sps_name=#{spsName},
+            sps_eng_name=#{spsEngName},
+            sps_crtf_typ_cd=#{spsCrtfTypCd},
+            sps_crtf_no=#{spsCrtfNo},
+            sps_work_unit_nm=#{spsWorkUnitNm},
+            sps_tel_no=#{spsTelNo},
+            valid_flg=#{validFlg},
+            crt_telr_no=#{crtTelrNo},
+            upd_telr_no=#{updTelrNo},
+            crt_tm=#{crtTm},
+            upd_tm=#{updTm}
+        WHERE id=#{id}
+    </update>
+
+
+    <!-- 插入个人客户信息 -->
+    <insert id="insert" parameterType="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.PersonalCustomerInfoPO">
+        INSERT INTO personal_customer_info (
+            tenant_no,
+            cust_no,
+            cust_eng_nm,
+            nm_used,
+            gender_cd,
+            ethnic_cd,
+            career_typ_cd,
+            housd_rgst_addr,
+            e_mail,
+            birth_dt,
+            edctbkg_cd,
+            ace_degree_cd,
+            work_unit_nm,
+            work_unit_addr,
+            id_card_typ_cd,
+            grntcrtf_instn_nm,
+            admin_cmprmnt_cd,
+            marrg_situation_cd,
+            sps_name,
+            sps_eng_name,
+            sps_crtf_typ_cd,
+            sps_crtf_no,
+            sps_work_unit_nm,
+            sps_tel_no,
+            valid_flg,
+            crt_telr_no,
+            upd_telr_no,
+            crt_tm,
+            upd_tm
+        ) VALUES (
+                     #{tenantNo},
+                     #{custNo},
+                     #{custEngNm},
+                     #{nmUsed},
+                     #{genderCd},
+                     #{ethnicCd},
+                     #{careerTypCd},
+                     #{housdRgstAddr},
+                     #{eMail},
+                     #{birthDt},
+                     #{edctbkgCd},
+                     #{aceDegreeCd},
+                     #{workUnitNm},
+                     #{workUnitAddr},
+                     #{idCardTypCd},
+                     #{grntcrtfInstnNm},
+                     #{adminCmprmntCd},
+                     #{marrgSituationCd},
+                     #{spsName},
+                     #{spsEngName},
+                     #{spsCrtfTypCd},
+                     #{spsCrtfNo},
+                     #{spsWorkUnitNm},
+                     #{spsTelNo},
+                     #{validFlg},
+                     #{crtTelrNo},
+                     #{updTelrNo},
+                     #{crtTm},
+                     #{updTm}
+                 )
+    </insert>
+
+</mapper>

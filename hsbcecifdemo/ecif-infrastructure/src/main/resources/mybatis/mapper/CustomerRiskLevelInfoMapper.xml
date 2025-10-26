@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.mapper.CustomerRiskLevelInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.mcore.hsbc.ecif.infrastructure.adapter.repository.db.po.CustomerRiskLevelInfoPO">
+        <id column="id" property="id" />
+        <result column="tenant_no" property="tenantNo" />
+        <result column="cust_no" property="custNo" />
+        <result column="cust_typ_cd" property="custTypCd" />
+        <result column="cust_attn_extt_cd" property="custAttnExttCd" />
+        <result column="blklist_cust_flg" property="blklistCustFlg" />
+        <result column="evalt_dt" property="evaltDt" />
+        <result column="evalt_acrdgas_comnt" property="evaltAcrdgasComnt" />
+        <result column="rels_or_isu_org_no" property="relsOrIsuOrgNo" />
+        <result column="valid_flg" property="validFlg" />
+        <result column="crt_telr_no" property="crtTelrNo" />
+        <result column="upd_telr_no" property="updTelrNo" />
+        <result column="crt_tm" property="crtTm" />
+        <result column="upd_tm" property="updTm" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, tenant_no, cust_no, cust_typ_cd, cust_attn_extt_cd, blklist_cust_flg,
+        evalt_dt, evalt_acrdgas_comnt, rels_or_isu_org_no, valid_flg,
+        crt_telr_no, upd_telr_no, crt_tm, upd_tm
+    </sql>
+
+    <select id="selectByCustNoAndType" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM customer_risk_level_info
+        WHERE cust_no = #{custNo}
+        AND cust_typ_cd = #{custTypCd}
+    </select>
+
+
+</mapper>

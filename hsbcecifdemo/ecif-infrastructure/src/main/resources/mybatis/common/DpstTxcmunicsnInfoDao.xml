@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sxnxs.core.common.dao.DpstTxcmunicsnInfoDao">
+
+    <!-- result maps for database table TRDCM_FLW -->
+    <resultMap id="RM-DPSTTXCMUNICSNINFO" type="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        <result property="pkId" column="PK_ID" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result property="brstEcd" column="BRST_ECD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="tntNo" column="TNT_NO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="ordNo" column="ORD_NO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="bzodrNo" column="BZODR_NO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="srvblNo" column="SRVBL_NO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="modulEcd" column="MODUL_ECD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="serno" column="SERNO" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="dpstServInsdoutsdCd" column="DPST_SERV_INSDOUTSD_CD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="trgtServCentIntfcNm" column="TRGT_SERV_CENT_INTFC_NM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="trgtServCentRspscd" column="TRGT_SERV_CENT_RSPSCD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="trgtServCentRspndInfo" column="TRGT_SERV_CENT_RSPND_INFO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="reqeMsgInfo" column="REQE_MSG_INFO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="retnMsgInfo" column="RETN_MSG_INFO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="sysDlwthStucd" column="SYS_DLWTH_STUCD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="reptrTbApltn" column="REPTR_TB_APLTN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="valDtinf" column="VAL_DTINF" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="rcptnDt" column="RCPTN_DT" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="rcptnTm" column="RCPTN_TM" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="remrk" column="REMRK" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="trdDt" column="TRD_DT" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="trdTm" column="TRD_TM" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="vldFlg" column="VLD_FLG" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="falReas" column="FAL_REAS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="crtTm" column="CRT_TM" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="updTm" column="UPD_TM" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="nodeId" column="NODE_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="cpnstTxStusCd" column="CPNST_TX_STUS_CD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="extnFlowtId" column="EXTN_FLOWT_ID" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    </resultMap>
+
+
+    <!-- mapped statement for IbatisDpstTxcmunicsnInfoDAO.insert -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pkId">
+        INSERT INTO TRDCM_FLW( BRST_ECD
+                                        , PK_ID
+                                        , TNT_NO
+                                        , ORD_NO
+                                        , BZODR_NO
+                                        , SRVBL_NO
+                                        , MODUL_ECD
+                                        , SERNO
+                                        , DPST_SERV_INSDOUTSD_CD
+                                        , TRGT_SERV_CENT_INTFC_NM
+                                        , TRGT_SERV_CENT_RSPSCD
+                                        , TRGT_SERV_CENT_RSPND_INFO
+                                        , REQE_MSG_INFO
+                                        , RETN_MSG_INFO
+                                        , SYS_DLWTH_STUCD
+                                        , REPTR_TB_APLTN
+                                        , VAL_DTINF
+                                        , RCPTN_DT
+                                        , RCPTN_TM
+                                        , REMRK
+                                        , TRD_DT
+                                        , TRD_TM
+                                        , VLD_FLG
+                                        , FAL_REAS
+                                        , CRT_TM
+                                        , UPD_TM
+                                        , NODE_ID
+                                        , CPNST_TX_STUS_CD
+                                        , EXTN_FLOWT_ID)
+        VALUES ( #{brstEcd}
+               , #{pkId}
+               , #{tntNo}
+               , #{ordNo}
+               , #{bzodrNo}
+               , #{srvblNo}
+               , #{modulEcd}
+               , #{serno}
+               , #{dpstServInsdoutsdCd}
+               , #{trgtServCentIntfcNm}
+               , #{trgtServCentRspscd}
+               , #{trgtServCentRspndInfo}
+               , #{reqeMsgInfo}
+               , #{retnMsgInfo}
+               , #{sysDlwthStucd}
+               , #{reptrTbApltn}
+               , #{valDtinf}
+               , #{rcptnDt}
+               , #{rcptnTm}
+               , #{remrk}
+               , #{trdDt}
+               , #{trdTm}
+               , #{vldFlg}
+               , #{falReas}
+               , #{crtTm}
+               , #{updTm}
+               , #{nodeId}
+               , #{cpnstTxStusCd}
+               , #{extnFlowtId})
+    </insert>
+
+    <insert id="insertAop" useGeneratedKeys="true" keyProperty="pkId">
+        INSERT INTO TRDCM_FLW( BRST_ECD
+                                        , PK_ID
+                                        , TNT_NO
+                                        , ORD_NO
+                                        , BZODR_NO
+                                        , SRVBL_NO
+                                        , MODUL_ECD
+                                        , SERNO
+                                        , DPST_SERV_INSDOUTSD_CD
+                                        , TRGT_SERV_CENT_INTFC_NM
+                                        , TRGT_SERV_CENT_RSPSCD
+                                        , TRGT_SERV_CENT_RSPND_INFO
+                                        , REQE_MSG_INFO
+                                        , RETN_MSG_INFO
+                                        , SYS_DLWTH_STUCD
+                                        , REPTR_TB_APLTN
+                                        , VAL_DTINF
+                                        , RCPTN_DT
+                                        , RCPTN_TM
+                                        , REMRK
+                                        , TRD_DT
+                                        , TRD_TM
+                                        , VLD_FLG
+                                        , FAL_REAS
+                                        , CRT_TM
+                                        , UPD_TM
+                                        , NODE_ID
+                                        , CPNST_TX_STUS_CD
+                                        , EXTN_FLOWT_ID)
+        VALUES ( #{brstEcd}
+               , #{pkId}
+               , #{tntNo}
+               , #{ordNo}
+               , #{bzodrNo}
+               , #{srvblNo}
+               , #{modulEcd}
+               , #{serno}
+               , #{dpstServInsdoutsdCd}
+               , #{trgtServCentIntfcNm}
+               , #{trgtServCentRspscd}
+               , #{trgtServCentRspndInfo}
+               , #{reqeMsgInfo}
+               , #{retnMsgInfo}
+               , #{sysDlwthStucd}
+               , #{reptrTbApltn}
+               , #{valDtinf}
+               , #{rcptnDt}
+               , #{rcptnTm}
+               , #{remrk}
+               , #{trdDt}
+               , #{trdTm}
+               , #{vldFlg}
+               , #{falReas}
+               , #{crtTm}
+               , #{updTm}
+               , #{nodeId}
+               , #{cpnstTxStusCd}
+               , #{extnFlowtId})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        update TRDCM_FLW
+        <set>
+            <if test="brstEcd!=null">
+                BRST_ECD = #{brstEcd},
+            </if>
+            <if test="tntNo!=null">
+                TNT_NO = #{tntNo},
+            </if>
+            <if test="ordNo!=null">
+                ORD_NO = #{ordNo},
+            </if>
+            <if test="bzodrNo!=null">
+                BZODR_NO = #{bzodrNo},
+            </if>
+            <if test="srvblNo!=null">
+                SRVBL_NO = #{srvblNo},
+            </if>
+            <if test="modulEcd!=null">
+                MODUL_ECD = #{modulEcd},
+            </if>
+            <if test="serno!=null">
+                SERNO = #{serno},
+            </if>
+            <if test="dpstServInsdoutsdCd!=null">
+                DPST_SERV_INSDOUTSD_CD = #{dpstServInsdoutsdCd},
+            </if>
+            <if test="trgtServCentIntfcNm!=null">
+                TRGT_SERV_CENT_INTFC_NM = #{trgtServCentIntfcNm},
+            </if>
+            <if test="trgtServCentRspscd!=null">
+                TRGT_SERV_CENT_RSPSCD = #{trgtServCentRspscd},
+            </if>
+            <if test="trgtServCentRspndInfo!=null">
+                TRGT_SERV_CENT_RSPND_INFO = #{trgtServCentRspndInfo},
+            </if>
+            <if test="reqeMsgInfo!=null">
+                REQE_MSG_INFO = #{reqeMsgInfo},
+            </if>
+            <if test="retnMsgInfo!=null">
+                RETN_MSG_INFO = #{retnMsgInfo},
+            </if>
+            <if test="sysDlwthStucd!=null">
+                SYS_DLWTH_STUCD = #{sysDlwthStucd},
+            </if>
+            <if test="reptrTbApltn!=null">
+                REPTR_TB_APLTN = #{reptrTbApltn},
+            </if>
+            <if test="valDtinf!=null">
+                VAL_DTINF = #{valDtinf},
+            </if>
+            <if test="rcptnDt!=null">
+                RCPTN_DT = #{rcptnDt},
+            </if>
+            <if test="rcptnTm!=null">
+                RCPTN_TM = #{rcptnTm},
+            </if>
+            <if test="remrk!=null">
+                REMRK = #{remrk},
+            </if>
+            <if test="trdDt != null">
+                TRD_DT = #{trdDt},
+            </if>
+            <if test="trdTm != null">
+                TRD_TM = #{trdTm},
+            </if>
+            <if test="vldFlg!=null">
+                VLD_FLG = #{vldFlg},
+            </if>
+            <if test="falReas!=null">
+                FAL_REAS = #{falReas},
+            </if>
+            <if test="crtTm!=null">
+                CRT_TM 2= #{crtTm},
+            </if>
+            <if test="updTm!=null">
+                UPD_TM = #{updTm},
+            </if>
+            <if test="nodeId!=null">
+                NODE_ID = #{nodeId},
+            </if>
+            <if test="cpnstTxStusCd!=null">
+                CPNST_TX_STUS_CD = #{cpnstTxStusCd},
+            </if>
+            <if test="extnFlowtId!=null">
+                EXTN_FLOWT_ID = #{extnFlowtId}
+            </if>
+        </set>
+        WHERE PK_ID=#{pkId} and BRST_ECD = #{brstEcd}
+    </update>
+
+    <select id="select" resultMap="RM-DPSTTXCMUNICSNINFO" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        SELECT PK_ID
+        ,BRST_ECD
+        ,TNT_NO
+        ,ORD_NO
+        ,BZODR_NO
+        ,SRVBL_NO
+        ,MODUL_ECD
+        ,SERNO
+        ,DPST_SERV_INSDOUTSD_CD
+        ,TRGT_SERV_CENT_INTFC_NM
+        ,TRGT_SERV_CENT_RSPSCD
+        ,TRGT_SERV_CENT_RSPND_INFO
+        ,REQE_MSG_INFO
+        ,RETN_MSG_INFO
+        ,SYS_DLWTH_STUCD
+        ,REPTR_TB_APLTN
+        ,VAL_DTINF
+        ,RCPTN_DT
+        ,RCPTN_TM
+        ,REMRK
+        ,TRD_DT
+        ,TRD_TM
+        ,VLD_FLG
+        ,FAL_REAS
+        ,CRT_TM
+        ,UPD_TM
+        ,NODE_ID
+        ,CPNST_TX_STUS_CD
+        ,EXTN_FLOWT_ID
+        FROM TRDCM_FLW
+        WHERE BRST_ECD = #{brstEcd} and ORD_NO=#{ordNo}
+        and MODUL_ECD=#{modulEcd} and SERNO=#{serno}
+        <if test="bzodrNo!=null">
+            and BZODR_NO=#{bzodrNo}
+        </if>
+    </select>
+
+    <select id="selectAllOf" resultMap="RM-DPSTTXCMUNICSNINFO" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        SELECT PK_ID
+             , BRST_ECD
+             , TNT_NO
+             , ORD_NO
+             , BZODR_NO
+             , SRVBL_NO
+             , MODUL_ECD
+             , SERNO
+             , DPST_SERV_INSDOUTSD_CD
+             , TRGT_SERV_CENT_INTFC_NM
+             , TRGT_SERV_CENT_RSPSCD
+             , TRGT_SERV_CENT_RSPND_INFO
+             , REQE_MSG_INFO
+             , RETN_MSG_INFO
+             , SYS_DLWTH_STUCD
+             , REPTR_TB_APLTN
+             , VAL_DTINF
+             , RCPTN_DT
+             , RCPTN_TM
+             , REMRK
+             , TRD_DT
+             , TRD_TM
+             , VLD_FLG
+             , FAL_REAS
+             , CRT_TM
+             , UPD_TM
+             , NODE_ID
+             , CPNST_TX_STUS_CD
+             , EXTN_FLOWT_ID
+        FROM TRDCM_FLW
+        WHERE ORD_NO = #{ordNo}
+          and BZODR_NO = #{bzodrNo}
+          and BRST_ECD = #{brstEcd}
+          and EXTN_FLOWT_ID = #{extnFlowtId}
+        order by CRT_TM
+    </select>
+
+    <select id="selectByKey" resultMap="RM-DPSTTXCMUNICSNINFO" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        SELECT
+        PK_ID
+        ,BRST_ECD
+        ,TNT_NO
+        ,ORD_NO
+        ,BZODR_NO
+        ,SRVBL_NO
+        ,MODUL_ECD
+        ,SERNO
+        ,DPST_SERV_INSDOUTSD_CD
+        ,TRGT_SERV_CENT_INTFC_NM
+        ,TRGT_SERV_CENT_RSPSCD
+        ,TRGT_SERV_CENT_RSPND_INFO
+        ,REQE_MSG_INFO
+        ,RETN_MSG_INFO
+        ,SYS_DLWTH_STUCD
+        ,REPTR_TB_APLTN
+        ,VAL_DTINF
+        ,RCPTN_DT
+        ,RCPTN_TM
+        ,REMRK
+        ,TRD_DT
+        ,TRD_TM
+        ,VLD_FLG
+        ,FAL_REAS
+        ,CRT_TM
+        ,UPD_TM
+        ,NODE_ID
+        ,CPNST_TX_STUS_CD
+        ,EXTN_FLOWT_ID
+        FROM TRDCM_FLW
+        WHERE ORD_NO=#{ordNo} and BZODR_NO=#{bzodrNo}
+        and MODUL_ECD=#{modulEcd} and SERNO=#{serno}
+        <if test="srvblNo!=null">and SRVBL_NO=#{srvblNo}</if>
+        <if test="brstEcd!=null">and BRST_ECD=#{brstEcd}</if>
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        update TRDCM_FLW
+        <set>
+            <if test="nodeId!=null">
+                NODE_ID = #{nodeId},
+            </if>
+            <if test="sysDlwthStucd!=null">
+                SYS_DLWTH_STUCD = #{sysDlwthStucd},
+            </if>
+            <if test="cpnstTxStusCd!=null">
+                CPNST_TX_STUS_CD = #{cpnstTxStusCd},
+            </if>
+        </set>
+        WHERE BRST_ECD = #{brstEcd} and ORD_NO=#{ordNo} and
+        BZODR_NO=#{bzodrNo} and SRVBL_NO=#{srvblNo}
+        and MODUL_ECD=#{modulEcd} and SERNO=#{serno}
+    </update>
+
+    <update id="updateByPrimaryKey1" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        update TRDCM_FLW
+        <set>
+            <if test="nodeId!=null">
+                NODE_ID = #{nodeId},
+            </if>
+            <if test="sysDlwthStucd!=null">
+                SYS_DLWTH_STUCD = #{sysDlwthStucd},
+            </if>
+            <if test="cpnstTxStusCd!=null">
+                CPNST_TX_STUS_CD = #{cpnstTxStusCd},
+            </if>
+        </set>
+        WHERE BRST_ECD = #{brstEcd} and ORD_NO=#{ordNo} and
+        BZODR_NO=#{bzodrNo} and SRVBL_NO=#{srvblNo}
+    </update>
+
+    <select id="selectByNode" resultMap="RM-DPSTTXCMUNICSNINFO" parameterType="com.mcore.plugin.tranflow.mflow.model.DpstTxcmunicsnInfoDO">
+        SELECT PK_ID
+        ,BRST_ECD
+        ,TNT_NO
+        ,ORD_NO
+        ,BZODR_NO
+        ,SRVBL_NO
+        ,MODUL_ECD
+        ,SERNO
+        ,DPST_SERV_INSDOUTSD_CD
+        ,TRGT_SERV_CENT_INTFC_NM
+        ,TRGT_SERV_CENT_RSPSCD
+        ,TRGT_SERV_CENT_RSPND_INFO
+        ,REQE_MSG_INFO
+        ,RETN_MSG_INFO
+        ,SYS_DLWTH_STUCD
+        ,REPTR_TB_APLTN
+        ,VAL_DTINF
+        ,RCPTN_DT
+        ,RCPTN_TM
+        ,REMRK
+        ,TRD_DT
+        ,TRD_TM
+        ,VLD_FLG
+        ,FAL_REAS
+        ,CRT_TM
+        ,UPD_TM
+        ,NODE_ID
+        ,CPNST_TX_STUS_CD
+        ,EXTN_FLOWT_ID
+        FROM TRDCM_FLW
+        WHERE ORD_NO=#{ordNo} and BZODR_NO=#{bzodrNo} and BRST_ECD = #{brstEcd}
+        <if test="nodeId!=null">
+            and NODE_ID like CONCAT('%',#{nodeId},'%')
+        </if>
+        <if test="extnFlowtId!=null">
+            and EXTN_FLOWT_ID = #{extnFlowtId}
+        </if>
+        order by CRT_TM
+    </select>
+</mapper>
